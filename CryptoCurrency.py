@@ -5,10 +5,10 @@
 import hashlib
 import datetime
 import json
-from flask import Flask, jsonify, request
-import requests
-from uuid import uuid4
-from urllib.parse import urlparse
+from flask import Flask, jsonify, request #added
+import requests #added
+from uuid import uuid4 #added
+from urllib.parse import urlparse #added
 
 
 #----------------------------------Generating a blockchain---------------------------------
@@ -16,7 +16,7 @@ from urllib.parse import urlparse
 class Blockchain:
     def __init__(self):
         self.chain = []
-        self.transactions = []
+        self.transactions = [] #added
         self.create_block(proof=1, previous_hash='0')
     
     def create_block(self, proof, previous_hash):
@@ -24,9 +24,9 @@ class Blockchain:
                   'timestamp': str(datetime.datetime.now()),
                  'proof': proof,
                  'previous_hash': previous_hash,
-                 'transactions': self.transactions
+                 'transactions': self.transactions #added
                  }
-        self.transactions = []
+        self.transactions = [] #added
         self.chain.append(block)
         return block
     
@@ -64,6 +64,7 @@ class Blockchain:
             block_index +=1
         return True
     
+    #added
     def add_transaction(self, sender, receiver, amount):
         self.transactions.append({'sender': sender,
                                   'receiver': receiver,

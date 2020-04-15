@@ -20,7 +20,7 @@ class Blockchain:
         self.create_block(proof=1, previous_hash='0')
         self.nodes = set() # adding nodes for obtain http address of the users.
     
-    def create_block(self, proof, previous_hash):
+    def create_block(self, proof, previous_hash): # generating a new block!!
         block = {'index': len(self.chain) +1,
                   'timestamp': str(datetime.datetime.now()),
                  'proof': proof,
@@ -31,10 +31,10 @@ class Blockchain:
         self.chain.append(block)
         return block
     
-    def get_previous_block(self):
+    def get_previous_block(self): # getting the previous block!!
         return self.chain[-1]
     
-    def proof_of_work(self, previous_proof):
+    def proof_of_work(self, previous_proof): # generating a P-O-W!!
         new_proof = 1
         check_proof = False
         while check_proof is False:
@@ -45,11 +45,11 @@ class Blockchain:
                 new_proof +=1
         return new_proof
     
-    def hash(self, block):
+    def hash(self, block): # separately calling the encrypted hash function!!
         encoded_block = json.dumps(block, sort_keys=True).encode()
         return hashlib.sha256(encoded_block).hexdigest()
     
-    def is_chain_valid(self, chain):
+    def is_chain_valid(self, chain): # validating the chain!!
         previous_block = chain[0]
         block_index = 1
         while block_index < len(chain):
@@ -65,7 +65,7 @@ class Blockchain:
             block_index +=1
         return True
     
-    def add_transaction(self, sender, receiver, amount):
+    def add_transaction(self, sender, receiver, amount): # adding transactions to the chain!!
         self.transactions.append({'sender': sender,
                                   'receiver': receiver,
                                   'amount': amount
@@ -74,11 +74,11 @@ class Blockchain:
         return previous_block['index'] +1
     
 #----------Adding Consensus Protocol to the blockchain network----------------
-    def add_node(self, address):
+    def add_node(self, address): # this will allow different participants to participate in our blockchain network!!
         parsed_url = urlparse(address)
         self.nodes.add(parsed_url.netloc)
         
-    def replace_chain(self):
+    def replace_chain(self): # the will replace the Current-chain with longest chain in the blockchain network!!
         network = self.nodes
         longest_chain = None
         max_length = len(self.chain)

@@ -170,12 +170,12 @@ def add_transaction():
 @app.route('/connect_node', methods = ['POST'])
 def connect_node():
     json = request.get_json()
-    nodes = json.get('node')
+    nodes = json.get('nodes')
     if nodes is None:
         return "no nodes available", 400
     for node in nodes:
         blockchain.add_node(node)
-    response = {'message': 'New node has been attached to the network at',
+    response = {'message': 'New node has been attached to the network ',
                 'Total_nodes': list(blockchain.nodes)
                 }
     return jsonify(response), 201

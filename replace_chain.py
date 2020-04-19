@@ -171,7 +171,7 @@ def add_transaction():
 @app.route('/connect_node', methods = ['POST'])
 def connect_node():
     json = request.get_json()
-    nodes = json.get('node')
+    nodes = json.get('nodes')
     if nodes is None:
         return "no nodes available", 400
     for node in nodes:
@@ -185,7 +185,7 @@ def connect_node():
 
 @app.route('/replace_chain', methods = ['GET'])
 def replace_chain():
-    is_chain_replaced = blockchain.replace_chain(blockchain.chain)
+    is_chain_replaced = blockchain.replace_chain()
     if is_chain_replaced:
         response = {'message': 'Nodes have different chains, therefore the original chain is being replaced by the new one!!',
                     'new_chain': blockchain.chain
